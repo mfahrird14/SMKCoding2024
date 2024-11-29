@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pendeteksi Suara</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #f0f0f0;
+        }
+        
+        #volumeMeter {
+            width: 300px;
+            height: 30px;
+            border: 2px solid #333;
+            background: #fff;
+            margin: 20px;
+        }
+        
+        #volumeBar {
+            height: 100%;
+            width: 0%;
+            background: #4CAF50;
+            transition: width 0.1s;
+        }
+        
+        #volumeValue {
+            font-size: 24px;
+            margin: 10px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        
+        button:hover {
+            background: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Pendeteksi Suara</h1>
+    <button id="startButton">Mulai Deteksi</button>
+    <div id="volumeMeter">
+        <div id="volumeBar"></div>
+    </div>
+    <div id="volumeValue">Volume: 0</div>
+
+    <script>
+        let audioContext;
+        let analyser;
+        let microphone;
+        let isListening = false;
+
+        document.getElementById('startButton').addEventListener('click', async () => {
+            if (!isListening) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    startAudioDetection(stream);
+                    document.getElementById('startButton').textContent = 'Stop Deteksi';
+                    isListening = true;
+                } catch (err) {
+                    console.error('Error akses mikrofon:', err);
+                    alert('Tidak dapat mengakses mikrofon');
+                }
+            } else {
+                stopAudioDetection();
+                document.getElementById('startButton').textContent = 'Mulai Deteksi';
+                isListening = false;
+            }
+        });
+
+        function startAudioDetection(stream) {
+            audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            analyser = audioContext.createAnalyser();
+            microphone = audioContext.createMediaStreamSource(stream);
+            
+            microphone.connect(analyser);
+            analyser.fftSize = 256;
+            
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            
+            function updateVolume() {
+                if (!isListening) return;
+                
+                analyser.getByteFrequencyData(dataArray);
+                const average = dataArray.reduce((a, b) => a + b) / bufferLength;
+                const volume = Math.round((average / 255) * 100);
+                
+                document.getElementById('volumeBar').style.width = volume + '%';
+                document.getElementById('volumeValue').textContent = `Volume: ${volume}`;
+                
+                requestAnimationFrame(updateVolume);
+            }
+            
+            updateVolume();
+        }
+
+        function stopAudioDetection() {
+            if (microphone) {
+                microphone.disconnect();
+            }
+            if (audioContext) {
+                audioContext.close();
+            }
+            document.getElementById('volumeBar').style.width = '0%';
+            document.getElementById('volumeValue').textContent = 'Volume: 0';
+        }
+    </script>
+</body>
+</html>

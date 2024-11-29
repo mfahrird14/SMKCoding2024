@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <title>Halaman Web Pribadi Sederhana</title>
+</head>
+<body>
+    <table width="100%" border="1" >
+        <!-- Header -->
+        <tr>
+            <td colspan="2" align="center" bgcolor="#89CFF0">
+                <h1>WEBSITE PRIBADI SAYA</h1>
+            </td>
+        </tr>
+        
+        <!-- Navigation dan Content -->
+        <tr>
+            <!-- Navigation (Left Side) -->
+            <td width="20%" valign="top" bgcolor="#999999">
+                <h3>Menu Navigasi</h3>
+                <ul>
+                    <li><a href="#home">Beranda</a></li>
+                    <li><a href="#about">Tentang Saya</a></li>
+                    <li><a href="#contact">Kontak</a></li>
+                </ul>
+            </td>
+            
+            <!-- Main Content (Right Side) -->
+            <td width="80%" valign="top" bgcolor="#D0E1F5">
+                <!-- About Section -->
+                <h2>Tentang Saya</h2>
+                <p>Halo! Saya adalah seorang web developer pemula yang sedang belajar HTML. 
+                Saat ini saya sedang menempuh pendidikan di bidang teknologi informasi.</p>
+
+                <!-- Skills Section -->
+                <h3>Keahlian</h3>
+                <ol>
+                    <li>HTML Dasar</li>
+                    <li>Microsoft Office</li>
+                    <li>Bahasa Inggris</li>
+                </ol>
+
+                <!-- Education Table -->
+                <h3>Riwayat Pendidikan</h3>
+                <table border="1">
+                    <tr>
+                        <th rowspan="2">Jenjang</th>
+                        <th colspan="2">Keterangan</th>
+                    </tr>
+                    <tr>
+                        <th>Nama Sekolah</th>
+                        <th>Tahun</th>
+                    </tr>
+                    <tr>
+                        <td>SD</td>
+                        <td>SD Negeri 1</td>
+                        <td>2010-2016</td>
+                    </tr>
+                    <tr>
+                        <td>SMP</td>
+                        <td>SMP Negeri 1</td>
+                        <td>2016-2019</td>
+                    </tr>
+                    <tr>
+                        <td>SMK</td>
+                        <td>SMK Negeri 1</td>
+                        <td>2019-2022</td>
+                    </tr>
+                </table>
+
+                <!-- Contact Form -->
+                <h3>Formulir Kontak</h3>
+                <form action="#" method="post">
+                    <table>
+                        <tr>
+                            <td>Nama:</td>
+                            <td><input type="text" name="nama" required></td>
+                        </tr>
+                        <tr>
+                            <td>Email:</td>
+                            <td><input type="email" name="email" required></td>
+                        </tr>
+                        <tr>
+                            <td>Pesan:</td>
+                            <td><textarea name="pesan" rows="4" cols="30"></textarea></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <input type="submit" value="Kirim">
+                                <input type="reset" value="Reset">
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+
+        <!-- Footer -->
+        <tr>
+            <td colspan="2" align="center" bgcolor="#89CFF0">
+                <p>&copy; 2024 Website Pribadi Sederhana</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
